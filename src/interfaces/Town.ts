@@ -1,4 +1,4 @@
-import type { Character } from "./Characters";
+import type { Character } from "./Character";
 
 export interface Town {
     id: number;

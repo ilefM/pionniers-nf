@@ -1,6 +1,8 @@
-import { useContext, useEffect, useMemo, useState } from "react";
+import { useContext, useMemo, useState } from "react";
 import { DataContext } from "../context/DataContext";
 import type { Character, Town } from "../interfaces";
+import { useNavigate } from "react-router";
+import { IoSearchOutline } from "react-icons/io5";
 
 interface Suggestion {
     type: "character" | "town";
@@ -21,6 +23,7 @@ export default function SearchBar() {
     const towns = useMemo(() => {
         return departments.flatMap((dep) => dep.towns);
     }, [departments]);
+    const navigate = useNavigate();
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
         const value = e.target.value;
@@ -63,19 +66,28 @@ export default function SearchBar() {
         }
     }
 
-    function handleSuggestionClick(suggestion: Suggestion) {}
+    function handleSuggestionClick(suggestion: Suggestion) {
+        if (suggestion.type === "character")
+            navigate(`/personnages/${suggestion.data.id}`);
+
+        if (suggestion.type === "town")
+            navigate(`/villes-et-villages/${suggestion.data.id}`);
+    }
 
     return (
-        <div className="bg-[#fefae0] mx-auto p-4 w-full rounded-lg shadow-md  justify-center">
-            <input
-                type="text"
-                value={searchTerm}
-                onChange={handleChange}
-                placeholder="Rechercher un personnage ou une ville/village..."
-                className="outline-none px-2 w-full"
-            />
+        <div className="bg-[#f5f3f4] mx-auto p-4 w-full rounded-lg shadow-lg  justify-center">
+            <div className="flex h-5 w-full cursor-text items-center justify-between rounded-3xl px-2">
+                <input
+                    type="text"
+                    value={searchTerm}
+                    onChange={handleChange}
+                    placeholder="Rechercher un personnage ou une ville/village..."
+                    className="outline-none px-2 w-full"
+                />
+                <IoSearchOutline size="22px" className="ml-1" color="#b5b1b3" />
+            </div>
             {isSuggestionsVisible && (
-                <div className="h-[1px] mx-2 mt-4 bg-[#e8e3ce]"></div>
+                <div className="h-[1px] mx-2 mt-4 bg-[#e8e3e6]"></div>
             )}
             {isSuggestionsVisible && suggestions.length > 0 && (
                 <div className="mt-2">

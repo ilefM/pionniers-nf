@@ -1,2 +1,2 @@
 export * from "./Town";
-export * from "./Characters";
+export * from "./Character";
