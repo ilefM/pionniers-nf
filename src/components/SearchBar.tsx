@@ -1,4 +1,4 @@
-import { useContext, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { DataContext } from "../context/DataContext";
 import type { Character, Town } from "../interfaces";
 import { useNavigate } from "react-router";
@@ -15,6 +15,7 @@ export default function SearchBar() {
     const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
     const [isSuggestionsVisible, setIsSuggestionsVisible] =
         useState<boolean>(false);
+    const suggestionsRef = useRef<HTMLDivElement | null>(null);
 
     const context = useContext(DataContext);
     if (!context)
@@ -24,6 +25,15 @@ export default function SearchBar() {
         return departments.flatMap((dep) => dep.towns);
     }, [departments]);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (isSuggestionsVisible && suggestionsRef.current) {
+            suggestionsRef.current.scrollIntoView({
+                behavior: "smooth",
+                block: "center",
+            });
+        }
+    }, [isSuggestionsVisible]);
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
         const value = e.target.value;

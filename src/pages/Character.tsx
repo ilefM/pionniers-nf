@@ -19,7 +19,7 @@ export default function Character() {
     return (
         <div className="w-[1200px] mx-auto">
             <h1 className="mb-8 text-2xl">
-                Renseignements et détails sur le personnage
+                {character?.lastname}, {character?.firstname}
             </h1>
 
             <div className="flex flex-col items-start space-y-4">
@@ -59,9 +59,9 @@ export default function Character() {
                     </p>
                     <p>{character?.deathplace}</p>
                 </div>
-                <div className="flex space-x-2">
+                <div className="flex flex-col space-x-2">
                     <p className="font-medium">Biographie:</p>
-                    <p>{character?.bio}</p>
+                    <p className="w-[800px]">{character?.bio}</p>
                 </div>
             </div>
         </div>
