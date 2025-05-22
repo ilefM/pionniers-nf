@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { DataContext } from "../context/DataContext";
 import type { Town } from "../interfaces";
-import TownMap from "../components/TownMap";
 import { getTownCoordinate } from "../utils/coordinates";
 import CharacterList from "../components/CharacterList";
 
