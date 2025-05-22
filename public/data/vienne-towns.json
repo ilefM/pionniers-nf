@@ -1688,18 +1688,26 @@
         ]
     },
     {
-        "name": "MONTS-SUR-GUESNE",
+        "name": "MONTS-SUR-GUESNES",
         "postcode": "86167",
         "population": "626 hab.",
         "description": "Arrondissement de Châtellerault (28 km, par D14). Monts est situé, à 146 mètres au-dessus du niveau de la mer, sur une position élevée dominant les plaines alentours. On pouvait voir, au siècle dernier, à un kilomètre à l’Est du bourg actuel, une butte de terre appelée la Motte de Saulnais. Rabelais en avait fait une « dépatture » de Gargantua.",
         "characters": [
             {
-                "lastname": "DUPUY",
+                "lastname": "DUPUIS / DUPUY",
                 "firstname": "Gabriel",
-                "mainplace": "MONTS-SUR-GUESNE (86167)",
+                "mainplace": "MONTS-SUR-GUESNES (86167)",
                 "birthplace": "Saint-Vincent",
                 "deathplace": "Non spécifié",
-                "bio": "DUPUY*, Gabriel. Militaire. Baptisé le 13-01-1730, église Saint-Vincent. Fils de Maurice Dupuy et d’AnneÉlisabeth Bleze. Marié à Marie-Charles Vaudry, à Lachenaie (Qc), le 06-02-1769. Décédé avant le 10-02-1783. Soldat au régiment de Guyenne, compagnie de Patrice, arrivé en Nouvelle-France, en 1755. (FO)"
+                "bio": "Militaire. Baptisé le 13-01-1730, église Saint-Vincent. Fils de Maurice Dupuy et d’AnneÉlisabeth Bleze. Marié à Marie-Charles Vaudry, à Lachenaie (Qc), le 06-02-1769. Décédé avant le 10-02-1783. Soldat au régiment de Guyenne, compagnie de Patrice, arrivé en Nouvelle-France, en 1755. (FO)"
+            },
+            {
+                "lastname": "REMENEUIL / LAFRANCHISE",
+                "firstname": "Louis",
+                "mainplace": "MONTS-SUR-GUESNES (86167)",
+                "birthplace": "Monts-sur-Guesnes",
+                "deathplace": "Québec",
+                "bio": "Fils de Mathurin Remeneuil et de Jeanne Bonivet. Marié à Marie-Catherine Durbois, à Québec, le 16-08-1736. (FG)"
             }
         ]
     },
@@ -1739,7 +1747,7 @@
                 "mainplace": "NAINTRÉ (86174)",
                 "birthplace": "Saint-Vincent",
                 "deathplace": "Québec",
-                "bio": "MÉNAGE* ou MESNAGE, Pierre. Charpentier. Baptisé le 11-01-1641, église Saint-Vincent. Fils d’André Ménage et de Françoise Lunet. Marié à Anne Leblanc, à Québec, le 13-03-1673. Inhumé à Québec, le 17-04-1715. Première mention, en Nouvelle-France, en 1669. (FO)"
+                "bio": "MÉNAGE ou MESNAGE, Pierre. Charpentier. Baptisé le 11-01-1641, église Saint-Vincent. Fils d’André Ménage et de Françoise Lunet. Marié à Anne Leblanc, à Québec, le 13-03-1673. Inhumé à Québec, le 17-04-1715. Première mention, en Nouvelle-France, en 1669. (FO)"
             }
         ]
     },

@@ -42,33 +42,29 @@ export default function Town() {
 
         fetchCoordinate();
     }, [setTown, departments, id, setCoordinate]);
-
+    console.log(coordinate);
     return (
-        <div className="w-[1000px] mx-auto h-full">
-            <h1 className="mb-8 text-2xl">{town?.name}</h1>
-            <div className="flex justify-between">
-                <div className="flex flex-col items-start space-y-4">
-                    <div className="flex space-x-2">
-                        <p className="font-medium">Nombre d'habitants:</p>
-                        <p>{town?.population}</p>
+        <div className="w-[1000px] mx-auto flex justify-center items-center">
+            <div>
+                <h1 className="mb-4 text-2xl">{town?.name}</h1>
+                <div className="flex justify-between p-5 bg-[#003049] text-white rounded-2xl w-[650px] shadow-md">
+                    <div className="flex flex-col items-start space-y-4">
+                        <div className="flex space-x-2">
+                            <p>{town?.postcode}</p>
+                        </div>
+                        <div className="flex space-x-2">
+                            <p className="w-full">{town?.description}</p>
+                        </div>
                     </div>
-                    <div className="flex space-x-2">
-                        <p className="font-medium">Code postal:</p>
-                        <p>{town?.postcode}</p>
-                    </div>
-                    <div className="flex space-x-2">
-                        <p className="font-medium">Description:</p>
-                        <p className="w-[350px]">{town?.description}</p>
-                    </div>
-                </div>
-                <div className="h-[300px] w-[500px]">
+                    {/* <div className="h-[300px] w-[500px]">
                     <TownMap coordinate={coordinate} />
+                </div> */}
                 </div>
-            </div>
-            <div className="mt-8">
-                {town?.characters && (
-                    <CharacterList characters={town?.characters} />
-                )}
+                <div className="mt-10">
+                    {town?.characters && (
+                        <CharacterList characters={town?.characters} />
+                    )}
+                </div>
             </div>
         </div>
     );

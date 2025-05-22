@@ -952,12 +952,19 @@
         "bio": "DUHAUT dit Jasmin, Louis-Laurent. Né vers 1736. Fils de Louis-Laurent Duhaut et d’Anoinette Joachim. Marié à Geneviève Cerat, à Sainte-Anne-de-Bellevue (Qc), le 24-08-1761. (FG)"
     },
     {
-        "lastname": "DUPUY",
+        "lastname": "DUPUIS / DUPUY",
         "firstname": "Gabriel",
-        "mainplace": "MONTS-SUR-GUESNE (86167)",
+        "mainplace": "MONTS-SUR-GUESNES (86167)",
         "birthplace": "Saint-Vincent",
         "deathplace": "Non spécifié",
-        "bio": "DUPUY*, Gabriel. Militaire. Baptisé le 13-01-1730, église Saint-Vincent. Fils de Maurice Dupuy et d’AnneÉlisabeth Bleze. Marié à Marie-Charles Vaudry, à Lachenaie (Qc), le 06-02-1769. Décédé avant le 10-02-1783. Soldat au régiment de Guyenne, compagnie de Patrice, arrivé en Nouvelle-France, en 1755. (FO)"
+        "bio": "Militaire. Baptisé le 13-01-1730, église Saint-Vincent. Fils de Maurice Dupuy et d’AnneÉlisabeth Bleze. Marié à Marie-Charles Vaudry, à Lachenaie (Qc), le 06-02-1769. Décédé avant le 10-02-1783. Soldat au régiment de Guyenne, compagnie de Patrice, arrivé en Nouvelle-France, en 1755. (FO)"
+    },
+    {
+        "lastname": "REMENEUIL / LAFRANCHISE",
+        "firstname": "Louis",
+        "birthplace": "MONTS-SUR-GUESNES (86167)",
+        "deathplace": "Québec",
+        "bio": "Fils de Mathurin Remeneuil et de Jeanne Bonivet. Marié à Marie-Catherine Durbois, à Québec, le 16-08-1736. (FG)"
     },
     {
         "lastname": "DURAND",
@@ -2606,5 +2613,13 @@
         "birthplace": "",
         "deathplace": "",
         "bio": "VILLEMONT (de), Jeanne-Antoinette. Fille de Henri-Martin de Mirebois de Villemont et d’Antoinette Fourier. Mariée à 1) François-Antoine Rivard dit Lavigne, à La Nouvelle-Orléans (Louisiane), le 20-02-1730. 2) jean-François Huchet, en Louisiane, en 1736. Contrat de mariage le 04-10-1736 (greffe Nicolas Henry). (FG)"
+    },
+    {
+        "lastname": "DE LA TOUCHE",
+        "firstname": "Daniel",
+        "mainplace": "Berthegon",
+        "birthplace": "",
+        "deathplace": "",
+        "bio": "Daniel de la TOUCHE, seigneur de la RAVARDIERE nait vers 1570 à Berthegon (Vayolles) Grand explorateur de l’Amérique centrale, il reconnaît l’embouchure de l’Amazone. Il est nommé vice-roi de la région de Guyane par Henri IV. Il fonde la ville de Sao-Louis au Brésil en 1612."
     }
 ]

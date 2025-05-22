@@ -23,12 +23,14 @@ export default function MainMap({ towns }: { towns: Town[] }) {
 
         fetchData();
     }, [towns]);
+
+    console.log(center);
     return (
         <div className="h-[500px] w-full">
             <MapContainer
                 center={[
-                    center ? center[0] : 46.574,
-                    center ? center[1] : -0.049,
+                    center ? center[0] : 46.913,
+                    center ? center[1] : 0.194,
                 ]}
                 zoom={10}
                 scrollWheelZoom={false}

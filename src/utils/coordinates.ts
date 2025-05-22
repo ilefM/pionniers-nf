@@ -39,7 +39,16 @@ export async function getCoordinates(towns: Town[]): Promise<Coordinate[]> {
         })
     );
 
-    console.log(coordinates);
+    towns.forEach((town) => {
+        if (town.name === "MONTS-SUR-GUESNES") {
+            coordinates.push({
+                name: town.name,
+                id: town.id,
+                postCode: town.postcode,
+                position: [46.913, 0.194],
+            });
+        }
+    });
 
     return coordinates;
 }

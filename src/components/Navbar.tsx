@@ -2,17 +2,20 @@ import { NavLink } from "react-router";
 
 export default function Navbar() {
     return (
-        <div className="w-full flex justify-between items-center p-4 text-lg text-slate-50 mx-2 bg-[#284b63]">
+        <div className="w-full flex justify-between items-center px-4 py-3 text-md text-[#fcfcfc] mx-2 bg-[#282828]">
             <NavLink to="/" className="cursor-pointer text-xl">
-                Pionniers et lieux de mémoire de la Nouvelle-France
+                Destination Nouvelle-France
             </NavLink>
             <div className="space-x-4">
-                <NavLink to="/a-propos" className="underline cursor-pointer">
+                <NavLink
+                    to="/a-propos"
+                    className="hover:underline cursor-pointer"
+                >
                     À propos
                 </NavLink>
                 <NavLink
                     to="/contactez-nous"
-                    className="underline cursor-pointer"
+                    className="hover:underline cursor-pointer"
                 >
                     Contactez-nous
                 </NavLink>

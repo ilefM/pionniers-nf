@@ -85,7 +85,7 @@ export default function SearchBar() {
     }
 
     return (
-        <div className="bg-[#f5f3f4] mx-auto p-4 w-full rounded-lg shadow-lg  justify-center">
+        <div className="bg-[#ffffff] mx-auto p-4 w-full rounded-lg shadow-lg  justify-center">
             <div className="flex h-5 w-full cursor-text items-center justify-between rounded-3xl px-2">
                 <input
                     type="text"
