@@ -1,5 +1,5 @@
 import { type FormEvent, useState } from "react";
-import { useLocation, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { supabase } from "../supabase/supabaseClient";
 
 export default function SignIn() {
@@ -8,7 +8,6 @@ export default function SignIn() {
     const [error, setError] = useState("");
 
     const navigate = useNavigate();
-    const location = useLocation();
 
     async function handleSignIn(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -20,7 +19,7 @@ export default function SignIn() {
             return;
         }
 
-        const { data, error } = await supabase.auth.signInWithPassword({
+        const { error } = await supabase.auth.signInWithPassword({
             email: login,
             password: password,
         });

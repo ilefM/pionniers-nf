@@ -10,9 +10,25 @@ body,
 }
 
 @font-face {
-    font-family: "Montserrat";
-    src: url("/fonts/Montserrat-VariableFont_wght.ttf") format("truetype");
-    font-weight: 100 900;
+    font-family: "Dosis";
+    src: url("./assets/fonts/Dosis-Regular.ttf") format("truetype");
     font-style: normal;
-    font-display: swap;
+}
+
+@font-face {
+    font-family: "Dosis Light";
+    src: url("./assets/fonts/Dosis-Light.ttf") format("truetype");
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Dosis SemiBold";
+    src: url("./assets/fonts/Dosis-SemiBold.ttf") format("truetype");
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Dosis Bold";
+    src: url("./assets/fonts/Dosis-Bold.ttf") format("truetype");
+    font-style: normal;
 }

@@ -11,7 +11,7 @@ type Dep = {
 
 export default function MainMap({ deps }: { deps: Dep[] }) {
     return (
-        <div className="h-[650px] w-full">
+        <div className="h-[600px] w-full">
             <MapContainer
                 center={[46.6034, 1.8883]}
                 zoom={6}

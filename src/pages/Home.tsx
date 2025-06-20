@@ -4,10 +4,15 @@ import { Link } from "react-router";
 
 export default function Home() {
     return (
-        <div className="flex flex-col h-full w-full items-center">
-            <div className="flex max-w-[2000px] justify-between items-center space-x-20">
+        <div className="flex flex-col h-full w-full items-center font-dosis">
+            <div className="bg-[#987d77] p-4 rounded-xl mb-8 font-dosis">
+                <p className="text-6xl font-dosis">
+                    Traces de la Nouvelle France
+                </p>
+            </div>
+            <div className="flex max-w-[1800px] mx- justify-between items-start space-x-20">
                 <div className="flex flex-col items-start">
-                    <p className="text-4xl font-bold text-[#1C1C1C] mb-4 text-center mt-8">
+                    <p className="text-5xl font-dosisBold text-[#1C1C1C] mb-4 text-center mt-8">
                         Le passé pour éclairer l'avenir
                     </p>
                     <div className="flex justify-between max-w-[800px] space-x-4 mt-11">

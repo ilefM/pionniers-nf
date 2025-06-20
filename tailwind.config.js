@@ -4,7 +4,10 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
-                montserrat: ['Montserrat', 'sans-serif'],
+                dosis: ['Dosis'],
+                dosisBold: ['Dosis Bold'],
+                dosisSemiBold: ['Dosis SemiBold'],
+                dosisLight: ['Dosis Light'],
             },
         },
     },

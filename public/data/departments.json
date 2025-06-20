@@ -114,18 +114,6 @@
         "longitude": 1.8
     },
     {
-        "code": "2A",
-        "department": "Corse-du-Sud",
-        "latitude": 41.55,
-        "longitude": 8.75
-    },
-    {
-        "code": "2B",
-        "department": "Haute-Corse",
-        "latitude": 42.4,
-        "longitude": 9.35
-    },
-    {
         "code": "21",
         "department": "Côte-d'Or",
         "latitude": 47.3,

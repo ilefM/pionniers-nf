@@ -12,7 +12,7 @@ export default function Navbar() {
     }
 
     return (
-        <div className="w-full flex justify-between items-center px-4 py-3 text-md font-semibold text-white mx-2 bg-[#987d77]">
+        <div className="w-full flex justify-between items-center px-4 py-3 text-md text-white mx-2 bg-[#987d77]">
             <NavLink to="/" className="cursor-pointer text-xl">
                 Destination Nouvelle-France
             </NavLink>

@@ -1,91 +1,81 @@
-import { useContext, useEffect, useMemo, useRef, useState } from "react";
-import { DataContext } from "../context/DataContext";
-import type { Character, Town } from "../interfaces";
-import { useNavigate } from "react-router";
+import { useEffect, useState } from "react";
 import { IoSearchOutline } from "react-icons/io5";
+import { supabase } from "../supabase/supabaseClient"; // adjust path if needed
+import { useNavigate } from "react-router";
 
-interface Suggestion {
-    type: "character" | "town";
-    display: string;
-    data: Character | Town;
-}
+type Town = {
+    id: number;
+    name: string;
+};
+
+type Character = {
+    id: number;
+    firstname: string;
+    lastname: string;
+};
 
 export default function SearchBar() {
-    const [searchTerm, setSearchTerm] = useState<string>("");
-    const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
-    const [isSuggestionsVisible, setIsSuggestionsVisible] =
-        useState<boolean>(false);
-    const suggestionsRef = useRef<HTMLDivElement | null>(null);
+    const [searchTerm, setSearchTerm] = useState("");
+    const [towns, setTowns] = useState<Town[]>([]);
+    const [characters, setCharacters] = useState<Character[]>([]);
+    const [isSuggestionsVisible, setIsSuggestionsVisible] = useState(false);
 
-    const context = useContext(DataContext);
-    if (!context)
-        throw new Error("DataContext must be used within a DataProvider");
-    const { characters, departments } = context;
-    const towns = useMemo(() => {
-        return departments.flatMap((dep) => dep.towns);
-    }, [departments]);
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (isSuggestionsVisible && suggestionsRef.current) {
-            suggestionsRef.current.scrollIntoView({
-                behavior: "smooth",
-                block: "center",
-            });
-        }
-    }, [isSuggestionsVisible]);
+        const timeout = setTimeout(() => {
+            if (searchTerm.length >= 3) {
+                fetchSuggestions(searchTerm);
+                setIsSuggestionsVisible(true);
+            } else {
+                setTowns([]);
+                setCharacters([]);
+                setIsSuggestionsVisible(false);
+            }
+        }, 300);
 
-    function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-        const value = e.target.value;
-        setSearchTerm(value);
+        return () => clearTimeout(timeout);
+    }, [searchTerm]);
 
-        if (value.length > 2) {
-            const charactersMatches = characters
-                .filter(
-                    (char) =>
-                        char.lastname.toLowerCase().includes(value) ||
-                        char.firstname.toLowerCase().includes(value)
-                )
-                .map((char) => ({
-                    type: "character" as const,
-                    display: `${char.firstname} ${char.lastname}`,
-                    data: char,
-                }));
+    const fetchSuggestions = async (term: string) => {
+        const { data: townsData } = await supabase
+            .from("towns")
+            .select("id, name")
+            .ilike("name", `${term}%`)
+            .limit(5);
 
-            const townsMatches = towns
-                .filter(
-                    (town) =>
-                        town.name.toLowerCase().includes(value) ||
-                        town.postcode.includes(value)
-                )
-                .map((town) => ({
-                    type: "town" as const,
-                    display: `${town.name} (${town.postcode})`,
-                    data: town,
-                }));
+        setTowns(townsData || []);
 
-            const allMatches = [...charactersMatches, ...townsMatches];
+        const { data: charactersData } = await supabase
+            .from("characters")
+            .select("id, firstname, lastname")
+            .or(`firstname.ilike.${term}%,lastname.ilike.${term}%`)
+            .limit(5);
 
-            allMatches.length != 0
-                ? setIsSuggestionsVisible(true)
-                : setIsSuggestionsVisible(false);
-            setSuggestions(allMatches);
+        setCharacters(charactersData || []);
+    };
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchTerm(e.target.value);
+    };
+
+    const handleSuggestionClick = (item: {
+        id: number;
+        label: string;
+        type: "town" | "character";
+    }) => {
+        setSearchTerm(item.label);
+        setIsSuggestionsVisible(false);
+
+        if (item.type === "town") {
+            navigate(`/commune-details/${item.id}`);
         } else {
-            setSuggestions([]);
-            setIsSuggestionsVisible(false);
+            navigate(`/personnage-details/${item.id}`);
         }
-    }
-
-    function handleSuggestionClick(suggestion: Suggestion) {
-        if (suggestion.type === "character")
-            navigate(`/personnages/${suggestion.data.id}`);
-
-        if (suggestion.type === "town")
-            navigate(`/villes-et-villages/${suggestion.data.id}`);
-    }
+    };
 
     return (
-        <div className="bg-[#ffffff] mx-auto p-4 w-full rounded-lg shadow-lg  justify-center">
+        <div className="bg-[#ffffff] mx-auto p-4 w-full rounded-lg shadow-lg justify-center">
             <div className="flex h-5 w-full cursor-text items-center justify-between rounded-3xl px-2">
                 <input
                     type="text"
@@ -96,26 +86,63 @@ export default function SearchBar() {
                 />
                 <IoSearchOutline size="22px" className="ml-1" color="#b5b1b3" />
             </div>
-            {isSuggestionsVisible && (
-                <div className="h-[1px] mx-2 mt-4 bg-[#e8e3e6]"></div>
-            )}
-            {isSuggestionsVisible && suggestions.length > 0 && (
-                <div className="mt-2">
-                    <ul className="max-h-[400px] overflow-y-auto">
-                        {suggestions.map((suggestion, id) => (
-                            <li
-                                key={id}
-                                onClick={() =>
-                                    handleSuggestionClick(suggestion)
-                                }
-                                className="rounded-lg text-neutral-700 p-2 my-1 hover:backdrop-brightness-95 hover:cursor-pointer"
-                            >
-                                {suggestion.display}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            )}
+
+            {isSuggestionsVisible &&
+                (characters.length > 0 || towns.length > 0) && (
+                    <>
+                        <div className="h-[1px] mx-2 mt-4 bg-[#e8e3e6]"></div>
+                        <div className="mt-2">
+                            {characters.length > 0 && (
+                                <>
+                                    <div className="text-md font-semibold text-gray-500 px-2 mt-1">
+                                        Pionniers
+                                    </div>
+                                    <ul className="max-h-[400px] overflow-y-auto">
+                                        {characters.map((char) => (
+                                            <li
+                                                key={`char-${char.id}`}
+                                                onClick={() =>
+                                                    handleSuggestionClick({
+                                                        id: char.id,
+                                                        label: `${char.firstname} ${char.lastname}`,
+                                                        type: "character",
+                                                    })
+                                                }
+                                                className="rounded-lg text-neutral-700 p-2 my-1 hover:backdrop-brightness-95 hover:cursor-pointer"
+                                            >
+                                                {char.firstname} {char.lastname}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </>
+                            )}
+                            {towns.length > 0 && (
+                                <>
+                                    <div className="text-md font-semibold text-gray-500 px-2 mt-2">
+                                        Villes/Villages
+                                    </div>
+                                    <ul className="max-h-[400px] overflow-y-auto">
+                                        {towns.map((town) => (
+                                            <li
+                                                key={`town-${town.id}`}
+                                                onClick={() =>
+                                                    handleSuggestionClick({
+                                                        id: town.id,
+                                                        label: town.name,
+                                                        type: "town",
+                                                    })
+                                                }
+                                                className="rounded-lg text-neutral-700 p-2 my-1 hover:backdrop-brightness-95 hover:cursor-pointer"
+                                            >
+                                                {town.name}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </>
+                            )}
+                        </div>
+                    </>
+                )}
         </div>
     );
 }
