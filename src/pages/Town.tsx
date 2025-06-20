@@ -1,68 +1,76 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import TownMap from "../components/TownMap";
 import { useParams } from "react-router";
-import { DataContext } from "../context/DataContext";
-import type { Town } from "../interfaces";
-import { getTownCoordinate } from "../utils/coordinates";
-import CharacterList from "../components/CharacterList";
+import { supabase } from "../supabase/supabaseClient";
+import CharactersList from "../components/CharactersList";
+
+type Town = {
+    id: string;
+    name: string;
+    code_insee?: string | null;
+    dep: string | null;
+    dep_code?: string | null;
+    position?: [number, number] | null;
+    description?: string | null;
+};
 
 export default function Town() {
+    const { id } = useParams<"id">();
     const [town, setTown] = useState<Town>();
-    const [coordinate, setCoordinate] = useState<[number, number]>([0, 0]);
-    const { id } = useParams();
-    const context = useContext(DataContext);
-    if (!context)
-        throw new Error("DataContext must be used within a DataProvider");
-    const { departments, characters } = context;
+    const [loading, setLoading] = useState(false);
+    const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
     useEffect(() => {
-        const towns = departments.flatMap((dep) => dep.towns);
-        const townData = towns.find((town) => town.id.toString() === id);
-        setTown(townData);
+        if (!id) return;
+        const fetchTown = async () => {
+            setLoading(true);
+            setErrorMsg(null);
 
-        townData?.characters.forEach((char) => {
-            characters.forEach((generalChar) => {
-                if (
-                    char.firstname === generalChar.firstname &&
-                    char.lastname === generalChar.lastname
-                ) {
-                    char.id = generalChar.id;
-                }
-            });
-        });
+            const { data, error } = await supabase
+                .from("towns")
+                .select("*")
+                .eq("id", id)
+                .single();
 
-        async function fetchCoordinate() {
-            if (townData) {
-                const coordinateData = await getTownCoordinate(
-                    townData.postcode
-                );
-                setCoordinate(coordinateData);
+            if (error) {
+                setErrorMsg(error.message);
+            } else {
+                setTown(data ?? null);
             }
-        }
+            setLoading(false);
+        };
+        fetchTown();
+    }, [id]);
 
-        fetchCoordinate();
-    }, [setTown, departments, id, setCoordinate]);
-    console.log(coordinate);
+    if (loading) return <p>Loading…</p>;
+    if (errorMsg) return <p className="text-red-600">{errorMsg}</p>;
+
     return (
-        <div className="w-[1000px] mx-auto flex justify-center items-center">
+        <div className="w-[1200px] mx-auto flex justify-center items-center">
             <div>
-                <h1 className="mb-4 text-2xl">{town?.name}</h1>
-                <div className="flex justify-between p-5 bg-[#003049] text-white rounded-2xl w-[650px] shadow-md">
+                <h1 className="mb-4 font-semibold text-2xl">{town?.name}</h1>
+                <div className="flex justify-between p-5 bg-[#987d77] text-white rounded-2xl w-[810px] shadow-md">
                     <div className="flex flex-col items-start space-y-4">
                         <div className="flex space-x-2">
-                            <p>{town?.postcode}</p>
+                            <p>Code insée: {town?.code_insee}</p>
+                        </div>
+                        <div className="flex space-x-2">
+                            <p>
+                                Département: {town?.dep} {town?.dep_code}
+                            </p>
                         </div>
                         <div className="flex space-x-2">
                             <p className="w-full">{town?.description}</p>
                         </div>
                     </div>
-                    {/* <div className="h-[300px] w-[500px]">
-                    <TownMap coordinate={coordinate} />
-                </div> */}
+                </div>
+                <div className="mx-auto mt-4 h-[300px] w-[800px]">
+                    {town?.position?.[0] && (
+                        <TownMap coordinate={town?.position} />
+                    )}
                 </div>
                 <div className="mt-10">
-                    {town?.characters && (
-                        <CharacterList characters={town?.characters} />
-                    )}
+                    <CharactersList />
                 </div>
             </div>
         </div>

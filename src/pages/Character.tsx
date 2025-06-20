@@ -4,7 +4,7 @@ import { DataContext } from "../context/DataContext";
 import type { Character } from "../interfaces";
 
 export default function Character() {
-    const [character, setCharacter] = useState<Character>();
+    const [characters, setCharacters] = useState<Character>();
     const { id } = useParams();
     const context = useContext(DataContext);
     if (!context)

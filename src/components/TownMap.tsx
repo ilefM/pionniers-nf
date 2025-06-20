@@ -6,12 +6,11 @@ export default function TownMap({
 }: {
     coordinate: [number, number];
 }) {
-    const zoom = 3;
     return (
         <div className="h-[300px] w-full">
             <MapContainer
                 center={[coordinate[0], coordinate[1]]}
-                zoom={zoom}
+                zoom={8}
                 scrollWheelZoom={false}
                 style={{ height: "100%", width: "100%" }}
             >

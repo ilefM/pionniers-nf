@@ -1,8 +1,18 @@
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
+import { useAuth } from "../context/AuthProvider";
+import { supabase } from "../supabase/supabaseClient";
 
 export default function Navbar() {
+    const { user } = useAuth();
+    const navigate = useNavigate();
+
+    async function handleSignOut() {
+        await supabase.auth.signOut();
+        navigate("/");
+    }
+
     return (
-        <div className="w-full flex justify-between items-center px-4 py-3 text-md text-[#fcfcfc] mx-2 bg-[#282828]">
+        <div className="w-full flex justify-between items-center px-4 py-3 text-md font-semibold text-white mx-2 bg-[#987d77]">
             <NavLink to="/" className="cursor-pointer text-xl">
                 Destination Nouvelle-France
             </NavLink>
@@ -13,12 +23,22 @@ export default function Navbar() {
                 >
                     À propos
                 </NavLink>
-                <NavLink
-                    to="/contactez-nous"
-                    className="hover:underline cursor-pointer"
-                >
-                    Contactez-nous
-                </NavLink>
+
+                {!user ? (
+                    <NavLink
+                        to="/se-connecter"
+                        className="hover:underline cursor-pointer"
+                    >
+                        Se connecter
+                    </NavLink>
+                ) : (
+                    <button
+                        onClick={handleSignOut}
+                        className="hover:underline cursor-pointer"
+                    >
+                        Se déconnecter
+                    </button>
+                )}
             </div>
         </div>
     );
